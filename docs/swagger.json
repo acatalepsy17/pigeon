@@ -1,0 +1,2877 @@
+{
+    "swagger": "2.0",
+    "basePath": "/api/v1",
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "info": {
+        "description": "## A simple, yet customizable and incrementally-adoptable backend server for a fully-functional social network",
+        "title": "Yappy API Specifications",
+        "version": "1.0"
+    },
+    "paths": {
+        "/auth/login": {
+            "post": {
+                "security": [
+                    {
+                        "GuestUserAuth": []
+                    }
+                ],
+                "description": "This endpoint generates new access and refresh tokens for authentication",
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login a user",
+                "parameters": [
+                    {
+                        "description": "User login",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.LoginSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ResponseSchema"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint logs a user out from our application",
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout a user",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ResponseSchema"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/refresh": {
+            "post": {
+                "description": "This endpoint refresh tokens by generating new access and refresh tokens for a user",
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Refresh tokens",
+                "parameters": [
+                    {
+                        "description": "Refresh token",
+                        "name": "refresh",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.RefreshTokenSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ResponseSchema"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "description": "`This endpoint registers new users into our application.`",
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register a new user",
+                "parameters": [
+                    {
+                        "description": "User data",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.RegisterUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.RegisterResponseSchema"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/resend-verification-email": {
+            "post": {
+                "description": "`This endpoint resends new otp to the user's email.`",
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Resend Verification Email",
+                "parameters": [
+                    {
+                        "description": "Email data",
+                        "name": "email",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.EmailRequestSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ResponseSchema"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/send-password-reset-otp": {
+            "post": {
+                "description": "`This endpoint sends new password reset otp to the user's email.`",
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Send Password Reset Otp",
+                "parameters": [
+                    {
+                        "description": "Email object",
+                        "name": "email",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.EmailRequestSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ResponseSchema"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/set-new-password": {
+            "post": {
+                "description": "`This endpoint verifies the password reset otp.`",
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Set New Password",
+                "parameters": [
+                    {
+                        "description": "Password reset object",
+                        "name": "email",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.SetNewPasswordSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ResponseSchema"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/verify-email": {
+            "post": {
+                "description": "`This endpoint verifies a user's email.`",
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Verify a user's email",
+                "parameters": [
+                    {
+                        "description": "Verify Email object",
+                        "name": "verify_email",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.VerifyEmailRequestSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ResponseSchema"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/chats": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "`This endpoint retrieves a paginated list of the current user chats`",
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Retrieve User Chats",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Current Page",
+                        "name": "page",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ChatsResponseSchema"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "`This endpoint sends a message`\n\n`You must either send a text or a file or both.`\n\n`If there's no chat_id, then its a new chat and you must set username and leave chat_id`\n\n`If chat_id is available, then ignore username and set the correct chat_id`\n\n`The file_upload_data in the response is what is used for uploading the file to cloudinary from client`",
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Send a message",
+                "parameters": [
+                    {
+                        "description": "Message object",
+                        "name": "message",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.MessageCreateSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.MessageCreateResponseSchema"
+                        }
+                    }
+                }
+            }
+        },
+        "/chats/groups/group": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "`This endpoint creates a group chat.`\n\n`The users_entry field should be a list of usernames you want to add to the group.`\n\n`Note: You cannot add more than 99 users in a group (1 owner + 99 other users = 100 users total).`",
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Create a Group Chat",
+                "parameters": [
+                    {
+                        "description": "Chat object",
+                        "name": "chat",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.GroupChatCreateSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.GroupChatInputResponseSchema"
+                        }
+                    }
+                }
+            }
+        },
+        "/chats/messages/{message_id}": {
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "`This endpoint updates a message.`\n\n`You must either send a text or a file or both.`\n\n`The file_upload_data in the response is what is used for uploading the file to cloudinary from client.`",
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Update a message",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Message ID (uuid)",
+                        "name": "message_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Message object",
+                        "name": "message",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.MessageUpdateSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.MessageCreateResponseSchema"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "`This endpoint deletes a message.`",
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Delete a message",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Message ID (uuid)",
+                        "name": "message_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ResponseSchema"
+                        }
+                    }
+                }
+            }
+        },
+        "/chats/{chat_id}": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "`This endpoint retrieves all messages in a chat`",
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Retrieve messages from a Chat",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Chat ID (uuid)",
+                        "name": "chat_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Current Page",
+                        "name": "page",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ChatResponseSchema"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "`This endpoint deletes a group chat.`",
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Delete a Group Chat",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Chat ID (uuid)",
+                        "name": "chat_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ResponseSchema"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "`This endpoint updates a group chat.`",
+                "tags": [
+                    "Chat"
+                ],
+                "summary": "Update a Group Chat",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Chat ID (uuid)",
+                        "name": "chat_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Chat object",
+                        "name": "chat",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.GroupChatInputSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.GroupChatInputResponseSchema"
+                        }
+                    }
+                }
+            }
+        },
+        "/feed/comments/{slug}": {
+            "get": {
+                "description": "This endpoint retrieves a comment with replies",
+                "tags": [
+                    "Feed"
+                ],
+                "summary": "Retrieve Comment with replies",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Comment Slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Current Page",
+                        "name": "page",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.CommentWithRepliesResponseSchema"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint updates a comment",
+                "tags": [
+                    "Feed"
+                ],
+                "summary": "Update Comment",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Comment Slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Comment object",
+                        "name": "comment",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.CommentInputSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.CommentResponseSchema"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint creates a reply for a comment",
+                "tags": [
+                    "Feed"
+                ],
+                "summary": "Create Reply",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Comment Slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Reply object",
+                        "name": "reply",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.CommentInputSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ReplyResponseSchema"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint deletes a comment",
+                "tags": [
+                    "Feed"
+                ],
+                "summary": "Delete Comment",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Comment Slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ResponseSchema"
+                        }
+                    }
+                }
+            }
+        },
+        "/feed/posts": {
+            "get": {
+                "description": "This endpoint retrieves paginated responses of latest posts",
+                "tags": [
+                    "Feed"
+                ],
+                "summary": "Retrieve Latest Posts",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Current Page",
+                        "name": "page",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.PostsResponseSchema"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint creates a new post",
+                "tags": [
+                    "Feed"
+                ],
+                "summary": "Create Post",
+                "parameters": [
+                    {
+                        "description": "Post object",
+                        "name": "post",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.PostInputSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.PostInputResponseSchema"
+                        }
+                    }
+                }
+            }
+        },
+        "/feed/posts/{slug}": {
+            "get": {
+                "description": "This endpoint retrieves a single post",
+                "tags": [
+                    "Feed"
+                ],
+                "summary": "Retrieve Single Post",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Post slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.PostResponseSchema"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint updates a post",
+                "tags": [
+                    "Feed"
+                ],
+                "summary": "Update Post",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Post slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Post object",
+                        "name": "post",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.PostInputSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.PostInputResponseSchema"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint deletes a post",
+                "tags": [
+                    "Feed"
+                ],
+                "summary": "Delete a Post",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Post slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ResponseSchema"
+                        }
+                    }
+                }
+            }
+        },
+        "/feed/posts/{slug}/comments": {
+            "get": {
+                "description": "This endpoint retrieves comments of a particular post",
+                "tags": [
+                    "Feed"
+                ],
+                "summary": "Retrieve Post Comments",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Post Slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Current Page",
+                        "name": "page",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.CommentsResponseSchema"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint creates a new comment for a particular post",
+                "tags": [
+                    "Feed"
+                ],
+                "summary": "Create Comment",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Post Slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Comment object",
+                        "name": "comment",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.CommentInputSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.CommentResponseSchema"
+                        }
+                    }
+                }
+            }
+        },
+        "/feed/reactions/{focus}/{slug}": {
+            "get": {
+                "description": "This endpoint retrieves paginated responses of reactions of post, comment, reply",
+                "tags": [
+                    "Feed"
+                ],
+                "summary": "Retrieve Latest Reactions of a Post, Comment, or Reply",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Specify the usage. Use any of the three: POST, COMMENT, REPLY",
+                        "name": "focus",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Enter the slug of the post or comment or reply",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Current Page",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Reaction Type. Must be any of these: LIKE, LOVE, HAHA, WOW, SAD, ANGRY",
+                        "name": "reaction_type",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ReactionsResponseSchema"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint creates a new reaction.",
+                "tags": [
+                    "Feed"
+                ],
+                "summary": "Create Reaction",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Specify the usage. Use any of the three: POST, COMMENT, REPLY",
+                        "name": "focus",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Enter the slug of the post or comment or reply",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Reaction object. rtype should be any of these: LIKE, LOVE, HAHA, WOW, SAD, ANGRY",
+                        "name": "post",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ReactionInputSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ReactionResponseSchema"
+                        }
+                    }
+                }
+            }
+        },
+        "/feed/reactions/{id}": {
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint deletes a reaction",
+                "tags": [
+                    "Feed"
+                ],
+                "summary": "Remove Reaction",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Reaction id (uuid)",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ResponseSchema"
+                        }
+                    }
+                }
+            }
+        },
+        "/feed/replies/{slug}": {
+            "get": {
+                "description": "This endpoint retrieves a reply",
+                "tags": [
+                    "Feed"
+                ],
+                "summary": "Retrieve Reply",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Reply Slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ReplyResponseSchema"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint updates a reply",
+                "tags": [
+                    "Feed"
+                ],
+                "summary": "Update Reply",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Reply Slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Reply object",
+                        "name": "reply",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.CommentInputSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ReplyResponseSchema"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint deletes a reply",
+                "tags": [
+                    "Feed"
+                ],
+                "summary": "Delete Reply",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Reply Slug",
+                        "name": "slug",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ResponseSchema"
+                        }
+                    }
+                }
+            }
+        },
+        "/profiles": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint retrieves a paginated list of users",
+                "tags": [
+                    "Profiles"
+                ],
+                "summary": "Retrieve Users",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Current Page",
+                        "name": "page",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ProfilesResponseSchema"
+                        }
+                    }
+                }
+            }
+        },
+        "/profiles/cities": {
+            "get": {
+                "description": "This endpoint retrieves the first 10 cities that matches the query params",
+                "tags": [
+                    "Profiles"
+                ],
+                "summary": "Retrieve cities based on query params",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "City name",
+                        "name": "name",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.CitiesResponseSchema"
+                        }
+                    }
+                }
+            }
+        },
+        "/profiles/friends": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint retrieves friends of a user",
+                "tags": [
+                    "Profiles"
+                ],
+                "summary": "Retrieve Friends",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Current Page",
+                        "name": "page",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ProfilesResponseSchema"
+                        }
+                    }
+                }
+            }
+        },
+        "/profiles/friends/requests": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint retrieves friend requests of a user",
+                "tags": [
+                    "Profiles"
+                ],
+                "summary": "Retrieve Friend Requests",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Current Page",
+                        "name": "page",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ProfilesResponseSchema"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint accepts or reject a friend request",
+                "tags": [
+                    "Profiles"
+                ],
+                "summary": "Accept Or Reject a Friend Request",
+                "parameters": [
+                    {
+                        "description": "Friend Request object",
+                        "name": "friend_request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.AcceptFriendRequestSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ResponseSchema"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint sends or delete friend requests",
+                "tags": [
+                    "Profiles"
+                ],
+                "summary": "Send Or Delete Friend Request",
+                "parameters": [
+                    {
+                        "description": "Friend Request object",
+                        "name": "friend_request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.SendFriendRequestSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ResponseSchema"
+                        }
+                    }
+                }
+            }
+        },
+        "/profiles/notifications": {
+            "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint retrieves a paginated list of auth user's notifications. Use post, comment, reply slug to navigate to the post, comment or reply.",
+                "tags": [
+                    "Profiles"
+                ],
+                "summary": "Retrieve User Notifications",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "default": 1,
+                        "description": "Current Page",
+                        "name": "page",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.NotificationsResponseSchema"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint reads a notification",
+                "tags": [
+                    "Profiles"
+                ],
+                "summary": "Read Notifications",
+                "parameters": [
+                    {
+                        "description": "Read Notification Data",
+                        "name": "read_data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ReadNotificationSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ResponseSchema"
+                        }
+                    }
+                }
+            }
+        },
+        "/profiles/profile": {
+            "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint deletes a particular user's account (irreversible)",
+                "tags": [
+                    "Profiles"
+                ],
+                "summary": "Delete User's Account",
+                "parameters": [
+                    {
+                        "description": "Password",
+                        "name": "password",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.DeleteUserSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ResponseSchema"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
+                "description": "This endpoint updates a user profile",
+                "tags": [
+                    "Profiles"
+                ],
+                "summary": "Update User Profile",
+                "parameters": [
+                    {
+                        "description": "Profile object",
+                        "name": "profile",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ProfileUpdateSchema"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ProfileResponseSchema"
+                        }
+                    }
+                }
+            }
+        },
+        "/profiles/profile/{username}": {
+            "get": {
+                "description": "This endpoint retrieves a user profile",
+                "tags": [
+                    "Profiles"
+                ],
+                "summary": "Retrieve User Profile",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Username of user",
+                        "name": "username",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.ProfileResponseSchema"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "choices.ChatTypeChoice": {
+            "type": "string",
+            "enum": [
+                "DM",
+                "GROUP"
+            ],
+            "x-enum-varnames": [
+                "CDM",
+                "CGROUP"
+            ]
+        },
+        "choices.NotificationChoice": {
+            "type": "string",
+            "enum": [
+                "REACTION",
+                "COMMENT",
+                "REPLY",
+                "ADMIN"
+            ],
+            "x-enum-varnames": [
+                "NREACTION",
+                "NCOMMENT",
+                "NREPLY",
+                "NADMIN"
+            ]
+        },
+        "choices.ReactionChoice": {
+            "type": "string",
+            "enum": [
+                "LIKE",
+                "LOVE",
+                "HAHA",
+                "WOW",
+                "SAD",
+                "ANGRY"
+            ],
+            "x-enum-varnames": [
+                "RLIKE",
+                "RLOVE",
+                "RHAHA",
+                "RWOW",
+                "RSAD",
+                "RANGRY"
+            ]
+        },
+        "models.Chat": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "ctype": {
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/choices.ChatTypeChoice"
+                        }
+                    ],
+                    "example": "DM"
+                },
+                "description": {
+                    "type": "string",
+                    "example": "A nice group for tech enthusiasts"
+                },
+                "file_upload_data": {
+                    "$ref": "#/definitions/utils.SignatureFormat"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "d10dde64-a242-4ed0-bd75-4c759644b3a6"
+                },
+                "image": {
+                    "type": "string",
+                    "example": "https://img.url"
+                },
+                "latest_message": {
+                    "$ref": "#/definitions/models.LatestMessageSchema"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "My Group"
+                },
+                "owner": {
+                    "$ref": "#/definitions/models.UserDataSchema"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "users": {
+                    "description": "omitempty later to show for groups",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.UserDataSchema"
+                    }
+                }
+            }
+        },
+        "models.City": {
+            "type": "object",
+            "properties": {
+                "country": {
+                    "type": "string",
+                    "example": "Nigeria"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "d10dde64-a242-4ed0-bd75-4c759644b3a6"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Lekki"
+                },
+                "region": {
+                    "type": "string",
+                    "example": "Lagos"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Comment": {
+            "type": "object",
+            "properties": {
+                "author": {
+                    "$ref": "#/definitions/models.UserDataSchema"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "d10dde64-a242-4ed0-bd75-4c759644b3a6"
+                },
+                "reactions_count": {
+                    "type": "integer"
+                },
+                "replies_count": {
+                    "type": "integer",
+                    "example": 50
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.LatestMessageSchema": {
+            "type": "object",
+            "properties": {
+                "file": {
+                    "type": "string"
+                },
+                "sender": {
+                    "$ref": "#/definitions/models.UserDataSchema"
+                },
+                "text": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Message": {
+            "type": "object",
+            "properties": {
+                "chat_id": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "file": {
+                    "type": "string",
+                    "example": "https://img.url"
+                },
+                "file_upload_data": {
+                    "$ref": "#/definitions/utils.SignatureFormat"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "d10dde64-a242-4ed0-bd75-4c759644b3a6"
+                },
+                "sender": {
+                    "$ref": "#/definitions/models.UserDataSchema"
+                },
+                "text": {
+                    "type": "string",
+                    "example": "Jesus is King"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Notification": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "$ref": "#/definitions/models.Comment"
+                },
+                "commentID": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "d10dde64-a242-4ed0-bd75-4c759644b3a6"
+                },
+                "ntype": {
+                    "$ref": "#/definitions/choices.NotificationChoice"
+                },
+                "post": {
+                    "$ref": "#/definitions/models.Post"
+                },
+                "postID": {
+                    "type": "string"
+                },
+                "readBy": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.User"
+                    }
+                },
+                "receivers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.User"
+                    }
+                },
+                "reply": {
+                    "$ref": "#/definitions/models.Reply"
+                },
+                "replyID": {
+                    "type": "string"
+                },
+                "sender": {
+                    "$ref": "#/definitions/models.User"
+                },
+                "senderID": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Post": {
+            "type": "object",
+            "properties": {
+                "author": {
+                    "$ref": "#/definitions/models.UserDataSchema"
+                },
+                "comments_count": {
+                    "type": "integer"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "file_upload_data": {
+                    "$ref": "#/definitions/utils.SignatureFormat"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "d10dde64-a242-4ed0-bd75-4c759644b3a6"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "reactions_count": {
+                    "type": "integer"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.Reaction": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "d10dde64-a242-4ed0-bd75-4c759644b3a6"
+                },
+                "rtype": {
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/choices.ReactionChoice"
+                        }
+                    ],
+                    "example": "LIKE"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "user": {
+                    "$ref": "#/definitions/models.UserDataSchema"
+                }
+            }
+        },
+        "models.Reply": {
+            "type": "object",
+            "properties": {
+                "author": {
+                    "$ref": "#/definitions/models.UserDataSchema"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "d10dde64-a242-4ed0-bd75-4c759644b3a6"
+                },
+                "reactions_count": {
+                    "type": "integer"
+                },
+                "slug": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.SiteDetail": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "type": "string",
+                    "example": "234, Lagos, Nigeria"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string",
+                    "example": "kayprogrammer1@gmail.com"
+                },
+                "fb": {
+                    "type": "string",
+                    "example": "https://facebook.com"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "d10dde64-a242-4ed0-bd75-4c759644b3a6"
+                },
+                "ig": {
+                    "type": "string",
+                    "example": "https://instagram.com"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string",
+                    "example": "+2348133831036"
+                },
+                "tw": {
+                    "type": "string",
+                    "example": "https://twitter.com"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "wh": {
+                    "type": "string",
+                    "example": "https://wa.me/2348133831036"
+                }
+            }
+        },
+        "models.User": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "type": "string",
+                    "example": "https://img.com"
+                },
+                "bio": {
+                    "type": "string",
+                    "example": "Software Engineer | Go Fiber Developer"
+                },
+                "city": {
+                    "type": "string",
+                    "example": "Lekki"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "dob": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string",
+                    "example": "johndoe@email.com"
+                },
+                "first_name": {
+                    "type": "string",
+                    "example": "John"
+                },
+                "id": {
+                    "type": "string",
+                    "example": "d10dde64-a242-4ed0-bd75-4c759644b3a6"
+                },
+                "last_name": {
+                    "type": "string",
+                    "example": "Doe"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string",
+                    "example": "john-doe"
+                }
+            }
+        },
+        "models.UserDataSchema": {
+            "type": "object",
+            "properties": {
+                "avatar": {
+                    "type": "string",
+                    "example": "https://img.url"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "John Doe"
+                },
+                "username": {
+                    "type": "string",
+                    "example": "john-doe"
+                }
+            }
+        },
+        "routes.HealthCheckSchema": {
+            "type": "object",
+            "properties": {
+                "success": {
+                    "type": "string",
+                    "example": "pong"
+                }
+            }
+        },
+        "schemas.AcceptFriendRequestSchema": {
+            "type": "object",
+            "required": [
+                "username"
+            ],
+            "properties": {
+                "accepted": {
+                    "type": "boolean",
+                    "example": true
+                },
+                "username": {
+                    "type": "string",
+                    "example": "john-doe"
+                }
+            }
+        },
+        "schemas.ChatResponseSchema": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/schemas.MessagesSchema"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Data fetched/created/updated/deleted"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "schemas.ChatsResponseDataSchema": {
+            "type": "object",
+            "properties": {
+                "chats": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Chat"
+                    }
+                },
+                "current_page": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "last_page": {
+                    "type": "integer",
+                    "example": 100
+                },
+                "per_page": {
+                    "type": "integer",
+                    "example": 100
+                }
+            }
+        },
+        "schemas.ChatsResponseSchema": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/schemas.ChatsResponseDataSchema"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Data fetched/created/updated/deleted"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "schemas.CitiesResponseSchema": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.City"
+                    }
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Data fetched/created/updated/deleted"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "schemas.CommentInputSchema": {
+            "type": "object",
+            "properties": {
+                "text": {
+                    "type": "string",
+                    "example": "Jesus is Lord"
+                }
+            }
+        },
+        "schemas.CommentResponseSchema": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.Comment"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Data fetched/created/updated/deleted"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "schemas.CommentWithRepliesResponseDataSchema": {
+            "type": "object",
+            "properties": {
+                "current_page": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Reply"
+                    }
+                },
+                "last_page": {
+                    "type": "integer",
+                    "example": 100
+                },
+                "per_page": {
+                    "type": "integer",
+                    "example": 100
+                }
+            }
+        },
+        "schemas.CommentWithRepliesResponseSchema": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/schemas.CommentWithRepliesSchema"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Data fetched/created/updated/deleted"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "schemas.CommentWithRepliesSchema": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "$ref": "#/definitions/models.Comment"
+                },
+                "replies": {
+                    "$ref": "#/definitions/schemas.CommentWithRepliesResponseDataSchema"
+                }
+            }
+        },
+        "schemas.CommentsResponseDataSchema": {
+            "type": "object",
+            "properties": {
+                "comments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Comment"
+                    }
+                },
+                "current_page": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "last_page": {
+                    "type": "integer",
+                    "example": 100
+                },
+                "per_page": {
+                    "type": "integer",
+                    "example": 100
+                }
+            }
+        },
+        "schemas.CommentsResponseSchema": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/schemas.CommentsResponseDataSchema"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Data fetched/created/updated/deleted"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "schemas.DeleteUserSchema": {
+            "type": "object",
+            "required": [
+                "password"
+            ],
+            "properties": {
+                "password": {
+                    "type": "string",
+                    "example": "password"
+                }
+            }
+        },
+        "schemas.EmailRequestSchema": {
+            "type": "object",
+            "required": [
+                "email"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "minLength": 5,
+                    "example": "johndoe@email.com"
+                }
+            }
+        },
+        "schemas.GroupChatCreateSchema": {
+            "type": "object",
+            "required": [
+                "name",
+                "usernames_to_add"
+            ],
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "maxLength": 1000,
+                    "example": "This is a group for bosses."
+                },
+                "file_type": {
+                    "type": "string",
+                    "example": "image/jpeg"
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "example": "Dopest Group"
+                },
+                "usernames_to_add": {
+                    "type": "array",
+                    "maxItems": 99,
+                    "minItems": 1,
+                    "items": {
+                        "type": "string"
+                    },
+                    "example": [
+                        "john-doe"
+                    ]
+                }
+            }
+        },
+        "schemas.GroupChatInputResponseSchema": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.Chat"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Data fetched/created/updated/deleted"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "schemas.GroupChatInputSchema": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "maxLength": 1000,
+                    "example": "This is a group for bosses."
+                },
+                "file_type": {
+                    "type": "string",
+                    "example": "image/jpeg"
+                },
+                "name": {
+                    "type": "string",
+                    "maxLength": 100,
+                    "example": "Dopest Group"
+                },
+                "usernames_to_add": {
+                    "type": "array",
+                    "maxItems": 99,
+                    "minItems": 1,
+                    "items": {
+                        "type": "string"
+                    },
+                    "example": [
+                        "john-doe"
+                    ]
+                },
+                "usernames_to_remove": {
+                    "type": "array",
+                    "maxItems": 99,
+                    "minItems": 1,
+                    "items": {
+                        "type": "string"
+                    },
+                    "example": [
+                        "john-doe"
+                    ]
+                }
+            }
+        },
+        "schemas.LoginSchema": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "johndoe@email.com"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "password"
+                }
+            }
+        },
+        "schemas.MessageCreateResponseSchema": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.Message"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Data fetched/created/updated/deleted"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "schemas.MessageCreateSchema": {
+            "type": "object",
+            "properties": {
+                "chat_id": {
+                    "type": "string",
+                    "example": "d10dde64-a242-4ed0-bd75-4c759644b3a6"
+                },
+                "file_type": {
+                    "type": "string",
+                    "example": "image/jpeg"
+                },
+                "text": {
+                    "type": "string",
+                    "example": "I am not in danger skyler, I am the danger"
+                },
+                "username": {
+                    "type": "string",
+                    "example": "john-doe"
+                }
+            }
+        },
+        "schemas.MessageUpdateSchema": {
+            "type": "object",
+            "properties": {
+                "file_type": {
+                    "type": "string",
+                    "example": "image/jpeg"
+                },
+                "text": {
+                    "type": "string",
+                    "example": "The Earth is the Lord's and the fullness thereof"
+                }
+            }
+        },
+        "schemas.MessagesResponseDataSchema": {
+            "type": "object",
+            "properties": {
+                "current_page": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Message"
+                    }
+                },
+                "last_page": {
+                    "type": "integer",
+                    "example": 100
+                },
+                "per_page": {
+                    "type": "integer",
+                    "example": 100
+                }
+            }
+        },
+        "schemas.MessagesSchema": {
+            "type": "object",
+            "properties": {
+                "chat": {
+                    "$ref": "#/definitions/models.Chat"
+                },
+                "messages": {
+                    "$ref": "#/definitions/schemas.MessagesResponseDataSchema"
+                },
+                "users": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.UserDataSchema"
+                    }
+                }
+            }
+        },
+        "schemas.NotificationsResponseDataSchema": {
+            "type": "object",
+            "properties": {
+                "current_page": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "last_page": {
+                    "type": "integer",
+                    "example": 100
+                },
+                "notifications": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Notification"
+                    }
+                },
+                "per_page": {
+                    "type": "integer",
+                    "example": 100
+                }
+            }
+        },
+        "schemas.NotificationsResponseSchema": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/schemas.NotificationsResponseDataSchema"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Data fetched/created/updated/deleted"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "schemas.PostInputResponseSchema": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.Post"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Data fetched/created/updated/deleted"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "schemas.PostInputSchema": {
+            "type": "object",
+            "required": [
+                "text"
+            ],
+            "properties": {
+                "file_type": {
+                    "type": "string",
+                    "example": "image/jpeg"
+                },
+                "text": {
+                    "type": "string",
+                    "example": "God is good"
+                }
+            }
+        },
+        "schemas.PostResponseSchema": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.Post"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Data fetched/created/updated/deleted"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "schemas.PostsResponseDataSchema": {
+            "type": "object",
+            "properties": {
+                "current_page": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "last_page": {
+                    "type": "integer",
+                    "example": 100
+                },
+                "per_page": {
+                    "type": "integer",
+                    "example": 100
+                },
+                "posts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Post"
+                    }
+                }
+            }
+        },
+        "schemas.PostsResponseSchema": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/schemas.PostsResponseDataSchema"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Data fetched/created/updated/deleted"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "schemas.ProfileResponseSchema": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.User"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Data fetched/created/updated/deleted"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "schemas.ProfileUpdateSchema": {
+            "type": "object",
+            "properties": {
+                "bio": {
+                    "type": "string",
+                    "maxLength": 200,
+                    "example": "Software Engineer | Go Fiber Developer"
+                },
+                "city_id": {
+                    "type": "string",
+                    "example": "d10dde64-a242-4ed0-bd75-4c759644b3a6"
+                },
+                "dob": {
+                    "type": "string",
+                    "example": "2001-01-16T00:00:00.106416+01:00"
+                },
+                "file_type": {
+                    "type": "string",
+                    "example": "image/jpeg"
+                },
+                "first_name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "minLength": 1,
+                    "example": "John"
+                },
+                "last_name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "minLength": 1,
+                    "example": "Doe"
+                }
+            }
+        },
+        "schemas.ProfilesResponseDataSchema": {
+            "type": "object",
+            "properties": {
+                "current_page": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "last_page": {
+                    "type": "integer",
+                    "example": 100
+                },
+                "per_page": {
+                    "type": "integer",
+                    "example": 100
+                },
+                "users": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.User"
+                    }
+                }
+            }
+        },
+        "schemas.ProfilesResponseSchema": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/schemas.ProfilesResponseDataSchema"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Data fetched/created/updated/deleted"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "schemas.ReactionInputSchema": {
+            "type": "object",
+            "required": [
+                "rtype"
+            ],
+            "properties": {
+                "rtype": {
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/choices.ReactionChoice"
+                        }
+                    ],
+                    "example": "LIKE"
+                }
+            }
+        },
+        "schemas.ReactionResponseSchema": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.Reaction"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Data fetched/created/updated/deleted"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "schemas.ReactionsResponseDataSchema": {
+            "type": "object",
+            "properties": {
+                "current_page": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "last_page": {
+                    "type": "integer",
+                    "example": 100
+                },
+                "per_page": {
+                    "type": "integer",
+                    "example": 100
+                },
+                "reactions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Reaction"
+                    }
+                }
+            }
+        },
+        "schemas.ReactionsResponseSchema": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/schemas.ReactionsResponseDataSchema"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Data fetched/created/updated/deleted"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "schemas.ReadNotificationSchema": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "example": "d10dde64-a242-4ed0-bd75-4c759644b3a6"
+                },
+                "mark_all_as_read": {
+                    "type": "boolean",
+                    "example": false
+                }
+            }
+        },
+        "schemas.RefreshTokenSchema": {
+            "type": "object",
+            "required": [
+                "refresh"
+            ],
+            "properties": {
+                "refresh": {
+                    "type": "string",
+                    "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InNpbXBsZWlkIiwiZXhwIjoxMjU3ODk0MzAwfQ.Ys_jP70xdxch32hFECfJQuvpvU5_IiTIN2pJJv68EqQ"
+                }
+            }
+        },
+        "schemas.RegisterResponseSchema": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/schemas.EmailRequestSchema"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Data fetched/created/updated/deleted"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "schemas.RegisterUser": {
+            "type": "object",
+            "required": [
+                "email",
+                "first_name",
+                "last_name",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "minLength": 5,
+                    "example": "johndoe@email.com"
+                },
+                "first_name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "example": "John"
+                },
+                "last_name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "example": "Doe"
+                },
+                "password": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "minLength": 8,
+                    "example": "strongpassword"
+                },
+                "terms_agreement": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "schemas.ReplyResponseSchema": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/models.Reply"
+                },
+                "message": {
+                    "type": "string",
+                    "example": "Data fetched/created/updated/deleted"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "schemas.ResponseSchema": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Data fetched/created/updated/deleted"
+                },
+                "status": {
+                    "type": "string",
+                    "example": "success"
+                }
+            }
+        },
+        "schemas.SendFriendRequestSchema": {
+            "type": "object",
+            "required": [
+                "username"
+            ],
+            "properties": {
+                "username": {
+                    "type": "string",
+                    "example": "john-doe"
+                }
+            }
+        },
+        "schemas.SetNewPasswordSchema": {
+            "type": "object",
+            "required": [
+                "email",
+                "otp",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "minLength": 5,
+                    "example": "johndoe@email.com"
+                },
+                "otp": {
+                    "type": "integer",
+                    "example": 123456
+                },
+                "password": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "minLength": 8,
+                    "example": "newstrongpassword"
+                }
+            }
+        },
+        "schemas.VerifyEmailRequestSchema": {
+            "type": "object",
+            "required": [
+                "email",
+                "otp"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "minLength": 5,
+                    "example": "johndoe@email.com"
+                },
+                "otp": {
+                    "type": "integer",
+                    "example": 123456
+                }
+            }
+        },
+        "utils.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "message": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "utils.SignatureFormat": {
+            "type": "object",
+            "properties": {
+                "public_id": {
+                    "type": "string",
+                    "example": "images/f47ac10b-58cc-4372-a567-0e02b2c3d479"
+                },
+                "signature": {
+                    "type": "string",
+                    "example": "e1ba4683fbbf90b75ca22e9f8e545b18c6b24eae"
+                },
+                "timestamp": {
+                    "type": "integer",
+                    "example": 1678828200
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "description": "Use bearer token to access secured APIs",
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Yappy Verification OTP</title>
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: "SF Pro Text", "SF Pro Icons", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .container {
+            border-radius: 10px;
+            border: 1px dashed #007bff;
+            padding: 20px;
+            width: fit-content;
+        }
+
+        .otp-code {
+            font-size: 28px;
+            font-weight: bold;
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px;
+            border: 1px dashed #007bff;
+            color: #007bff;
+            margin: 20px 0px;
+        }
+
+        .btn_verify {
+            display: inline-block;
+            margin: 20px 0px;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 99px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <p>Your One-Time Password (OTP) for verification is:</p>
+        <p class="otp-code">{{.Otp}}</p>
+        <p>
+            This code is only valid for the next 30 minutes.</p>
+        <a href="#" class="btn_verify">
+            <span>Verify Now</span>
+        </a>
+        <p>If it's not you {{.Name}}, please <a href="#">contact me</a>.</p>
+</body>
+
+</html>
