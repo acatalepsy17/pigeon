@@ -14,8 +14,8 @@ import (
 // @Param user body schemas.RegisterUser true "User data"
 // @Success 201 {object} schemas.RegisterResponseSchema
 // @Failure 422 {object} utils.ErrorResponse
-// @Router /auth/register [post]
-func (ep Endpoint) Register(c *fiber.Ctx) error {
+// @Router /auth/sign_up [post]
+func (ep Endpoint) SignUp(c *fiber.Ctx) error {
 	db := ep.DB
 
 	data := schemas.RegisterUser{}
@@ -57,7 +57,7 @@ func (ep Endpoint) Register(c *fiber.Ctx) error {
 // @Param verify_email body schemas.VerifyEmailRequestSchema true "Verify Email object"
 // @Success 200 {object} schemas.ResponseSchema
 // @Failure 422 {object} utils.ErrorResponse
-// @Router /auth/verify-email [post]
+// @Router /auth/verify_email [post]
 func (ep Endpoint) VerifyEmail(c *fiber.Ctx) error {
 	db := ep.DB
 
@@ -103,7 +103,7 @@ func (ep Endpoint) VerifyEmail(c *fiber.Ctx) error {
 // @Param email body schemas.EmailRequestSchema true "Email data"
 // @Success 200 {object} schemas.ResponseSchema
 // @Failure 422 {object} utils.ErrorResponse
-// @Router /auth/resend-verification-email [post]
+// @Router /auth/resend_verification_email [post]
 func (ep Endpoint) ResendVerificationEmail(c *fiber.Ctx) error {
 	db := ep.DB
 
@@ -140,7 +140,7 @@ func (ep Endpoint) ResendVerificationEmail(c *fiber.Ctx) error {
 // @Success 200 {object} schemas.ResponseSchema
 // @Failure 422 {object} utils.ErrorResponse
 // @Failure 404 {object} utils.ErrorResponse
-// @Router /auth/send-password-reset-otp [post]
+// @Router /auth/send_password_reset_otp [post]
 func (ep Endpoint) SendPasswordResetOtp(c *fiber.Ctx) error {
 	db := ep.DB
 
@@ -173,7 +173,7 @@ func (ep Endpoint) SendPasswordResetOtp(c *fiber.Ctx) error {
 // @Success 200 {object} schemas.ResponseSchema
 // @Failure 422 {object} utils.ErrorResponse
 // @Failure 404 {object} utils.ErrorResponse
-// @Router /auth/set-new-password [post]
+// @Router /auth/set_new_password [post]
 func (ep Endpoint) SetNewPassword(c *fiber.Ctx) error {
 	db := ep.DB
 
@@ -218,8 +218,8 @@ func (ep Endpoint) SetNewPassword(c *fiber.Ctx) error {
 // @Failure 422 {object} utils.ErrorResponse
 // @Failure 401 {object} utils.ErrorResponse
 // @Security GuestUserAuth
-// @Router /auth/login [post]
-func (ep Endpoint) Login(c *fiber.Ctx) error {
+// @Router /auth/sign_in [post]
+func (ep Endpoint) SignIn(c *fiber.Ctx) error {
 	db := ep.DB
 
 	data := schemas.LoginSchema{}
@@ -260,10 +260,9 @@ func (ep Endpoint) Login(c *fiber.Ctx) error {
 // @Failure 422 {object} utils.ErrorResponse
 // @Failure 404 {object} utils.ErrorResponse
 // @Failure 401 {object} utils.ErrorResponse
-// @Router /auth/refresh [post]
-func (ep Endpoint) Refresh(c *fiber.Ctx) error {
+// @Router /auth/refresh_token [post]
+func (ep Endpoint) RefreshToken(c *fiber.Ctx) error {
 	db := ep.DB
-
 	data := schemas.RefreshTokenSchema{}
 
 	// Validate request
@@ -298,9 +297,9 @@ func (ep Endpoint) Refresh(c *fiber.Ctx) error {
 // @Tags Auth
 // @Success 200 {object} schemas.ResponseSchema
 // @Failure 401 {object} utils.ErrorResponse
-// @Router /auth/logout [get]
+// @Router /auth/sign_out [get]
 // @Security BearerAuth
-func (ep Endpoint) Logout(c *fiber.Ctx) error {
+func (ep Endpoint) SignOut(c *fiber.Ctx) error {
 	db := ep.DB
 	user := RequestUser(c)
 	user.Access = nil

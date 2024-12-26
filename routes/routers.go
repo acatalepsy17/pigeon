@@ -16,14 +16,14 @@ func SetupRoutes(app *fiber.App, db *gorm.DB) {
 
 	// authentication
 	authRouter := api.Group("/auth")
-	authRouter.Post("/register", endpoint.Register)
-	authRouter.Post("/verify-email", endpoint.VerifyEmail)
-	authRouter.Post("/resend-verification-email", endpoint.ResendVerificationEmail)
-	authRouter.Post("/send-password-reset-otp", endpoint.SendPasswordResetOtp)
-	authRouter.Post("/set-new-password", endpoint.SetNewPassword)
-	authRouter.Post("/login", endpoint.Login)
-	authRouter.Post("/refresh", endpoint.Refresh)
-	authRouter.Get("/logout", endpoint.Logout)
+	authRouter.Post("/sign_up", endpoint.SignUp)
+	authRouter.Post("/sign_in", endpoint.SignIn)
+	authRouter.Get("/sign_out", endpoint.SignOut)
+	authRouter.Post("/verify_email", endpoint.VerifyEmail)
+	authRouter.Post("/resend_verification_email", endpoint.ResendVerificationEmail)
+	authRouter.Post("/send_password_reset_otp", endpoint.SendPasswordResetOtp)
+	authRouter.Post("/set_new_password", endpoint.SetNewPassword)
+	authRouter.Post("/refresh_token", endpoint.RefreshToken)
 
 	// user profile
 	profilesRouter := api.Group("/profiles", endpoint.AuthMiddleware)

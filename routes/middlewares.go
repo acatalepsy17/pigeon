@@ -11,7 +11,7 @@ import (
 
 func GetUser(token string, db *gorm.DB) (*models.User, *string) {
 	if !strings.HasPrefix(token, "Bearer ") {
-		err := "Auth Bearer Not Provided"
+		err := "Bearer token is not provided!"
 		return nil, &err
 	}
 	user, err := DecodeAccessToken(token[7:], db)

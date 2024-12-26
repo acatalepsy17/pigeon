@@ -8,12 +8,46 @@
         "application/json"
     ],
     "info": {
-        "description": "## A simple, yet customizable and incrementally-adoptable backend server for a fully-functional social network",
+        "description": "# A simple, yet customizable and incrementally-adoptable backend server for a fully-functional social network.\n## Features\n- All must-have authentication APIs, with extra email verification and password reset using OTP.\n- Make friends, and more specifically I have integrated the capability of looking for specified-city people.\n- Upload posts, share your reactions, express your thoughts through comments and make fun with comment replies.\n- Chat with others, with both one-to-one and grouped conversations.\n## Upcoming features\n- Must-do email verification to upload stories/posts.\n- Add new fields to User tab: biography, education, workplace, relationship, social accounts,...\n- Keep users always updated with live notification.\n- New Story feeds (users self-add music).\n- Allow multi-media posts.\n- New Collection tab for saving pockets.\n- Eye-soothing dark mode for better display in dark.",
         "title": "Yappy API Specifications",
         "version": "1.0"
     },
     "paths": {
-        "/auth/login": {
+        "/auth/sign_up": {
+            "post": {
+                "description": "`This endpoint registers new users into our application.`",
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register a new user",
+                "parameters": [
+                    {
+                        "description": "User data",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/schemas.RegisterUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/schemas.RegisterResponseSchema"
+                        }
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity",
+                        "schema": {
+                            "$ref": "#/definitions/utils.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/sign_in": {
             "post": {
                 "security": [
                     {
@@ -58,7 +92,7 @@
                 }
             }
         },
-        "/auth/logout": {
+        "/auth/sign_out": {
             "get": {
                 "security": [
                     {
@@ -86,7 +120,7 @@
                 }
             }
         },
-        "/auth/refresh": {
+        "/auth/refresh_token": {
             "post": {
                 "description": "This endpoint refresh tokens by generating new access and refresh tokens for a user",
                 "tags": [
@@ -132,41 +166,7 @@
                 }
             }
         },
-        "/auth/register": {
-            "post": {
-                "description": "`This endpoint registers new users into our application.`",
-                "tags": [
-                    "Auth"
-                ],
-                "summary": "Register a new user",
-                "parameters": [
-                    {
-                        "description": "User data",
-                        "name": "user",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/schemas.RegisterUser"
-                        }
-                    }
-                ],
-                "responses": {
-                    "201": {
-                        "description": "Created",
-                        "schema": {
-                            "$ref": "#/definitions/schemas.RegisterResponseSchema"
-                        }
-                    },
-                    "422": {
-                        "description": "Unprocessable Entity",
-                        "schema": {
-                            "$ref": "#/definitions/utils.ErrorResponse"
-                        }
-                    }
-                }
-            }
-        },
-        "/auth/resend-verification-email": {
+        "/auth/resend_verification_email": {
             "post": {
                 "description": "`This endpoint resends new otp to the user's email.`",
                 "tags": [
@@ -200,7 +200,7 @@
                 }
             }
         },
-        "/auth/send-password-reset-otp": {
+        "/auth/send_password_reset_otp": {
             "post": {
                 "description": "`This endpoint sends new password reset otp to the user's email.`",
                 "tags": [
@@ -240,7 +240,7 @@
                 }
             }
         },
-        "/auth/set-new-password": {
+        "/auth/set_new_password": {
             "post": {
                 "description": "`This endpoint verifies the password reset otp.`",
                 "tags": [
@@ -280,7 +280,7 @@
                 }
             }
         },
-        "/auth/verify-email": {
+        "/auth/verify_email": {
             "post": {
                 "description": "`This endpoint verifies a user's email.`",
                 "tags": [

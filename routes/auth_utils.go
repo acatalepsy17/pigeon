@@ -38,7 +38,7 @@ func GenerateAccessToken(userId uuid.UUID, username string) string {
 	}
 
 	// Declare the token with the algorithm used for signing, and the claims
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, payload)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS512, payload)
 	// Create the JWT string
 	tokenString, err := token.SignedString(SECRETKEY)
 	if err != nil {
@@ -59,7 +59,7 @@ func GenerateRefreshToken() string {
 	}
 
 	// Declare the token with the algorithm used for signing, and the claims
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, payload)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS512, payload)
 	// Create the JWT string
 	tokenString, err := token.SignedString(SECRETKEY)
 	if err != nil {
