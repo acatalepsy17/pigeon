@@ -29,7 +29,7 @@ func (f File) UpdateOrCreate(db *gorm.DB, id *uuid.UUID) File {
 }
 
 type UserDataSchema struct {
-	Name     string  `json:"name" example:"John Doe"`
+	Name     string  `json:"name" example:"Donald Trump"`
 	Username string  `json:"username" example:"john-doe"`
 	Avatar   *string `json:"avatar" example:"https://img.url"`
 }

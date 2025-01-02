@@ -2,15 +2,15 @@ package schemas
 
 // REQUEST BODY SCHEMAS
 type RegisterUser struct {
-	FirstName      string `json:"first_name" validate:"required,max=50" example:"John"`
-	LastName       string `json:"last_name" validate:"required,max=50" example:"Doe"`
-	Email          string `json:"email" validate:"required,min=5,email" example:"johndoe@email.com"`
-	Password       string `json:"password" validate:"required,min=8,max=50" example:"strongpassword"`
+	FirstName      string `json:"first_name" validate:"required,max=50" example:"Donald"`
+	LastName       string `json:"last_name" validate:"required,max=50" example:"Trump"`
+	Email          string `json:"email" validate:"required,min=5,email" example:"donaldtrump47th@gmail.com"`
+	Password       string `json:"password" validate:"required,min=8,max=50" example:"!2x8w6?0gO94_4,v"`
 	TermsAgreement bool   `json:"terms_agreement" validate:"eq=true"`
 }
 
 type EmailRequestSchema struct {
-	Email string `json:"email" validate:"required,min=5,email" example:"johndoe@email.com"`
+	Email string `json:"email" validate:"required,min=5,email" example:"donaldtrump47th@gmail.com"`
 }
 
 type VerifyEmailRequestSchema struct {
@@ -20,11 +20,11 @@ type VerifyEmailRequestSchema struct {
 
 type SetNewPasswordSchema struct {
 	VerifyEmailRequestSchema
-	Password string `json:"password" validate:"required,min=8,max=50" example:"newstrongpassword"`
+	Password string `json:"password" validate:"required,min=8,max=50" example:"H14l@6c$9W{ED?18"`
 }
 
 type LoginSchema struct {
-	Email    string `json:"email" validate:"required,email" example:"johndoe@email.com"`
+	Email    string `json:"email" validate:"required,email" example:"donaldtrump47th@gmail.com"`
 	Password string `json:"password" validate:"required" example:"password"`
 }
 

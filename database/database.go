@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/acatalepsy17/yappy/config"
-	"github.com/acatalepsy17/yappy/models"
+	"github.com/acatalepsy17/pigeon/config"
+	"github.com/acatalepsy17/pigeon/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"

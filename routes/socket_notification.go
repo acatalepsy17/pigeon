@@ -4,11 +4,11 @@ import (
 	"encoding/json"
 	"log"
 
-	"github.com/acatalepsy17/yappy/database"
-	"github.com/acatalepsy17/yappy/managers"
-	"github.com/acatalepsy17/yappy/models"
-	"github.com/acatalepsy17/yappy/models/choices"
-	"github.com/acatalepsy17/yappy/utils"
+	"github.com/acatalepsy17/pigeon/database"
+	"github.com/acatalepsy17/pigeon/managers"
+	"github.com/acatalepsy17/pigeon/models"
+	"github.com/acatalepsy17/pigeon/models/choices"
+	"github.com/acatalepsy17/pigeon/utils"
 	"github.com/gofiber/contrib/websocket"
 	"gorm.io/gorm"
 )

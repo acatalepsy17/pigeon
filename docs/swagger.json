@@ -9,7 +9,7 @@
     ],
     "info": {
         "description": "# A simple, yet customizable and incrementally-adoptable backend server for a fully-functional social network.\n## Features\n- All must-have authentication APIs, with extra email verification and password reset using OTP.\n- Make friends, and more specifically I have integrated the capability of looking for specified-city people.\n- Upload posts, share your reactions, express your thoughts through comments and make fun with comment replies.\n- Chat with others, with both one-to-one and grouped conversations.\n## Upcoming features\n- Must-do email verification to upload stories/posts.\n- Add new fields to User tab: biography, education, workplace, relationship, social accounts,...\n- Keep users always updated with live notification.\n- New Story feeds (users self-add music).\n- Allow multi-media posts.\n- New Collection tab for saving pockets.\n- Eye-soothing dark mode for better display in dark.",
-        "title": "Yappy API Specifications",
+        "title": "Pigeon API Specifications",
         "version": "1.0"
     },
     "paths": {
@@ -1906,11 +1906,11 @@
                 },
                 "email": {
                     "type": "string",
-                    "example": "johndoe@email.com"
+                    "example": "donaldtrump47th@gmail.com"
                 },
                 "first_name": {
                     "type": "string",
-                    "example": "John"
+                    "example": "Donald"
                 },
                 "id": {
                     "type": "string",
@@ -1918,7 +1918,7 @@
                 },
                 "last_name": {
                     "type": "string",
-                    "example": "Doe"
+                    "example": "Trump"
                 },
                 "updated_at": {
                     "type": "string"
@@ -1938,7 +1938,7 @@
                 },
                 "name": {
                     "type": "string",
-                    "example": "John Doe"
+                    "example": "Donald Trump"
                 },
                 "username": {
                     "type": "string",
@@ -2180,7 +2180,7 @@
                 "email": {
                     "type": "string",
                     "minLength": 5,
-                    "example": "johndoe@email.com"
+                    "example": "donaldtrump47th@gmail.com"
                 }
             }
         },
@@ -2284,7 +2284,7 @@
             "properties": {
                 "email": {
                     "type": "string",
-                    "example": "johndoe@email.com"
+                    "example": "donaldtrump47th@gmail.com"
                 },
                 "password": {
                     "type": "string",
@@ -2548,13 +2548,13 @@
                     "type": "string",
                     "maxLength": 50,
                     "minLength": 1,
-                    "example": "John"
+                    "example": "Donald"
                 },
                 "last_name": {
                     "type": "string",
                     "maxLength": 50,
                     "minLength": 1,
-                    "example": "Doe"
+                    "example": "Trump"
                 }
             }
         },
@@ -2721,23 +2721,23 @@
                 "email": {
                     "type": "string",
                     "minLength": 5,
-                    "example": "johndoe@email.com"
+                    "example": "donaldtrump47th@gmail.com"
                 },
                 "first_name": {
                     "type": "string",
                     "maxLength": 50,
-                    "example": "John"
+                    "example": "Donald"
                 },
                 "last_name": {
                     "type": "string",
                     "maxLength": 50,
-                    "example": "Doe"
+                    "example": "Trump"
                 },
                 "password": {
                     "type": "string",
                     "maxLength": 50,
                     "minLength": 8,
-                    "example": "strongpassword"
+                    "example": "!2x8w6?0gO94_4,v"
                 },
                 "terms_agreement": {
                     "type": "boolean"
@@ -2796,7 +2796,7 @@
                 "email": {
                     "type": "string",
                     "minLength": 5,
-                    "example": "johndoe@email.com"
+                    "example": "donaldtrump47th@gmail.com"
                 },
                 "otp": {
                     "type": "integer",
@@ -2806,7 +2806,7 @@
                     "type": "string",
                     "maxLength": 50,
                     "minLength": 8,
-                    "example": "newstrongpassword"
+                    "example": "H14l@6c$9W{ED?18"
                 }
             }
         },
@@ -2820,7 +2820,7 @@
                 "email": {
                     "type": "string",
                     "minLength": 5,
-                    "example": "johndoe@email.com"
+                    "example": "donaldtrump47th@gmail.com"
                 },
                 "otp": {
                     "type": "integer",

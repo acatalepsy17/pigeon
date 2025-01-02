@@ -4,8 +4,8 @@ import (
 	"math"
 	"reflect"
 
-	"github.com/acatalepsy17/yappy/schemas"
-	"github.com/acatalepsy17/yappy/utils"
+	"github.com/acatalepsy17/pigeon/schemas"
+	"github.com/acatalepsy17/pigeon/utils"
 	"github.com/gofiber/fiber/v2"
 )
 

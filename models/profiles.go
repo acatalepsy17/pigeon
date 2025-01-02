@@ -1,7 +1,7 @@
 package models
 
 import (
-	"github.com/acatalepsy17/yappy/models/choices"
+	"github.com/acatalepsy17/pigeon/models/choices"
 	"github.com/pborman/uuid"
 	"gorm.io/gorm"
 )
@@ -35,7 +35,7 @@ type Notification struct {
 	PostSlug    *string `gorm:"-" json:"post_slug" example:"john-doe-d10dde64-a242-4ed0-bd75-4c759644b3a6"`
 	CommentSlug *string `gorm:"-" json:"comment_slug" example:"john-doe-d10dde64-a242-4ed0-bd75-4c759644b3a6"`
 	ReplySlug   *string `gorm:"-" json:"reply_slug" example:"john-doe-d10dde64-a242-4ed0-bd75-4c759644b3a6"`
-	Message     string  `gorm:"-" json:"message" example:"John Doe reacted to your post"`
+	Message     string  `gorm:"-" json:"message" example:"Donald Trump reacted to your post"`
 	IsRead      bool    `gorm:"-" json:"is_read" example:"true"`
 }
 

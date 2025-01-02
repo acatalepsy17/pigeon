@@ -4,9 +4,9 @@ import (
 	"log"
 	"time"
 
-	"github.com/acatalepsy17/yappy/config"
-	"github.com/acatalepsy17/yappy/models"
-	"github.com/acatalepsy17/yappy/utils"
+	"github.com/acatalepsy17/pigeon/config"
+	"github.com/acatalepsy17/pigeon/models"
+	"github.com/acatalepsy17/pigeon/utils"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/pborman/uuid"
 	"gorm.io/gorm"

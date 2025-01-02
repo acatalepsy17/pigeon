@@ -9,8 +9,8 @@ import (
 	"path/filepath"
 	"runtime"
 
-	"github.com/acatalepsy17/yappy/config"
-	"github.com/acatalepsy17/yappy/models"
+	"github.com/acatalepsy17/pigeon/config"
+	"github.com/acatalepsy17/pigeon/models"
 	"gopkg.in/gomail.v2"
 )
 

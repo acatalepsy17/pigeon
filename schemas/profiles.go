@@ -3,14 +3,14 @@ package schemas
 import (
 	"time"
 
-	"github.com/acatalepsy17/yappy/models"
-	"github.com/acatalepsy17/yappy/utils"
+	"github.com/acatalepsy17/pigeon/models"
+	"github.com/acatalepsy17/pigeon/utils"
 	"github.com/pborman/uuid"
 )
 
 type ProfileUpdateSchema struct {
-	FirstName *string    `json:"first_name" validate:"omitempty,max=50,min=1" example:"John"`
-	LastName  *string    `json:"last_name" validate:"omitempty,max=50,min=1" example:"Doe"`
+	FirstName *string    `json:"first_name" validate:"omitempty,max=50,min=1" example:"Donald"`
+	LastName  *string    `json:"last_name" validate:"omitempty,max=50,min=1" example:"Trump"`
 	Bio       *string    `json:"bio" validate:"omitempty,max=200" example:"Software Engineer | Go Fiber Developer"`
 	Dob       *time.Time `json:"dob" validate:"omitempty" example:"2001-01-16T00:00:00.106416+01:00"`
 	CityID    *uuid.UUID `json:"city_id" validate:"omitempty" example:"d10dde64-a242-4ed0-bd75-4c759644b3a6"`

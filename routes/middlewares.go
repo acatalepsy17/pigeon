@@ -3,8 +3,8 @@ package routes
 import (
 	"strings"
 
-	"github.com/acatalepsy17/yappy/models"
-	"github.com/acatalepsy17/yappy/utils"
+	"github.com/acatalepsy17/pigeon/models"
+	"github.com/acatalepsy17/pigeon/utils"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 )

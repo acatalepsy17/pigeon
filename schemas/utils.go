@@ -1,6 +1,6 @@
 package schemas
 
-import "github.com/acatalepsy17/yappy/models"
+import "github.com/acatalepsy17/pigeon/models"
 
 func ConvertUsers(users []models.User) []UserDataSchema {
 	convertedUsers := []UserDataSchema{}

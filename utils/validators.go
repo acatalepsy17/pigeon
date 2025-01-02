@@ -3,7 +3,7 @@ package utils
 import (
 	"time"
 
-	"github.com/acatalepsy17/yappy/models/choices"
+	"github.com/acatalepsy17/pigeon/models/choices"
 	"github.com/go-playground/validator/v10"
 	"github.com/google/uuid"
 )

@@ -1,8 +1,8 @@
 package models
 
 import (
-	"github.com/acatalepsy17/yappy/models/choices"
-	"github.com/acatalepsy17/yappy/utils"
+	"github.com/acatalepsy17/pigeon/models/choices"
+	"github.com/acatalepsy17/pigeon/utils"
 	"github.com/pborman/uuid"
 	"gorm.io/gorm"
 )

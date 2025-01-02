@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/acatalepsy17/yappy/config"
-	"github.com/acatalepsy17/yappy/utils"
+	"github.com/acatalepsy17/pigeon/config"
+	"github.com/acatalepsy17/pigeon/utils"
 	"github.com/gosimple/slug"
 	"github.com/pborman/uuid"
 	"gorm.io/gorm"
@@ -47,10 +47,10 @@ func (city City) Init() City {
 
 type User struct {
 	BaseModel
-	FirstName             string         `json:"first_name" gorm:"type: varchar(255);not null" example:"John"`
-	LastName              string         `json:"last_name" gorm:"type: varchar(255);not null" example:"Doe"`
+	FirstName             string         `json:"first_name" gorm:"type: varchar(255);not null" example:"Donald"`
+	LastName              string         `json:"last_name" gorm:"type: varchar(255);not null" example:"Trump"`
 	Username              string         `json:"username" gorm:"type: varchar(1000);not null;unique;" example:"john-doe"`
-	Email                 string         `json:"email" gorm:"not null;unique;" example:"johndoe@email.com"`
+	Email                 string         `json:"email" gorm:"not null;unique;" example:"donaldtrump47th@gmail.com"`
 	Password              string         `json:"-" gorm:"not null"`
 	IsEmailVerified       bool           `json:"-" gorm:"default:false"`
 	IsStaff               bool           `json:"-" gorm:"default:false"`

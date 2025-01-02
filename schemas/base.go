@@ -1,7 +1,7 @@
 package schemas
 
 import (
-	"github.com/acatalepsy17/yappy/models"
+	"github.com/acatalepsy17/pigeon/models"
 )
 
 type ResponseSchema struct {
@@ -16,7 +16,7 @@ type PaginatedResponseDataSchema struct {
 }
 
 type UserDataSchema struct {
-	Name     string  `json:"name" example:"John Doe"`
+	Name     string  `json:"name" example:"Donald Trump"`
 	Username string  `json:"username" example:"john-doe"`
 	Avatar   *string `json:"avatar" example:"https://img.url"`
 }

@@ -12,14 +12,14 @@ import (
 	"github.com/cloudinary/cloudinary-go/v2/api"
 	"github.com/cloudinary/cloudinary-go/v2/api/uploader"
 
-	"github.com/acatalepsy17/yappy/config"
+	"github.com/acatalepsy17/pigeon/config"
 )
 
 var cloudName string
 var apiKey string
 var apiSecret string
 var cld *cloudinary.Cloudinary
-var baseFolder = "yappy/"
+var baseFolder = "pigeon/"
 
 func init() {
 	cfg := config.GetConfig()

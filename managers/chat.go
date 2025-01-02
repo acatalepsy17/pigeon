@@ -1,10 +1,10 @@
 package managers
 
 import (
-	"github.com/acatalepsy17/yappy/models"
-	"github.com/acatalepsy17/yappy/models/choices"
-	"github.com/acatalepsy17/yappy/schemas"
-	"github.com/acatalepsy17/yappy/utils"
+	"github.com/acatalepsy17/pigeon/models"
+	"github.com/acatalepsy17/pigeon/models/choices"
+	"github.com/acatalepsy17/pigeon/schemas"
+	"github.com/acatalepsy17/pigeon/utils"
 	"github.com/pborman/uuid"
 	"gorm.io/gorm"
 )

@@ -1,7 +1,7 @@
 package schemas
 
 import (
-	"github.com/acatalepsy17/yappy/models"
+	"github.com/acatalepsy17/pigeon/models"
 	"github.com/pborman/uuid"
 )
 

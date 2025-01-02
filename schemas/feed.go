@@ -1,8 +1,8 @@
 package schemas
 
 import (
-	"github.com/acatalepsy17/yappy/models"
-	"github.com/acatalepsy17/yappy/models/choices"
+	"github.com/acatalepsy17/pigeon/models"
+	"github.com/acatalepsy17/pigeon/models/choices"
 )
 
 type PostInputSchema struct {

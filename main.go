@@ -5,9 +5,9 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/acatalepsy17/yappy/config"
-	"github.com/acatalepsy17/yappy/database"
-	"github.com/acatalepsy17/yappy/routes"
+	"github.com/acatalepsy17/pigeon/config"
+	"github.com/acatalepsy17/pigeon/database"
+	"github.com/acatalepsy17/pigeon/routes"
 	"github.com/gofiber/contrib/swagger"
 	"github.com/gofiber/contrib/websocket"
 	"github.com/gofiber/fiber/v2"
@@ -37,7 +37,7 @@ func main() {
 	swaggerCfg := swagger.Config{
 		FilePath: "./docs/swagger.json",
 		Path:     "/",
-		Title:    "Yappy API Specification",
+		Title:    "Pigeon API Specification",
 		CacheAge: 1,
 	}
 

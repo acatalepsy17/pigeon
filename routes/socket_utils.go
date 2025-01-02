@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"sync"
 
-	"github.com/acatalepsy17/yappy/models"
-	"github.com/acatalepsy17/yappy/utils"
+	"github.com/acatalepsy17/pigeon/models"
+	"github.com/acatalepsy17/pigeon/utils"
 	"github.com/gofiber/contrib/websocket"
 	"gorm.io/gorm"
 )
