@@ -8,7 +8,6 @@ import (
 	"github.com/acatalepsy17/pigeon/config"
 	"github.com/acatalepsy17/pigeon/database"
 	"github.com/acatalepsy17/pigeon/routes"
-	"github.com/gofiber/contrib/swagger"
 	"github.com/gofiber/contrib/websocket"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -23,6 +22,12 @@ func main() {
 		Concurrency: runtime.NumCPU(),
 	})
 
+	// first serve static files
+	app.Static("/api/", "./public", fiber.Static{
+		ByteRange: true,
+		Index:     "index.html",
+	})
+
 	app.Use(cors.New(cors.Config{
 		AllowOrigins: "*",
 		AllowMethods: "GET,POST,PUT,DELETE,PATCH",
@@ -34,14 +39,6 @@ func main() {
 		LimiterMiddleware: limiter.SlidingWindow{},
 	}))
 
-	swaggerCfg := swagger.Config{
-		FilePath: "./docs/swagger.json",
-		Path:     "/",
-		Title:    "Pigeon API Specification",
-		CacheAge: 1,
-	}
-
-	app.Use(swagger.New(swaggerCfg))
 	app.Use("/ws", func(c *fiber.Ctx) error {
 		// IsWebSocketUpgrade returns true if the client requested upgrade to the WebSocket protocol.
 		if websocket.IsWebSocketUpgrade(c) {

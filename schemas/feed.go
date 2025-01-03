@@ -17,7 +17,7 @@ type ReactionInputSchema struct {
 
 // // COMMENTS & REPLIES SCHEMA
 // type ReplySchema struct {
-// 	Edges        		*ent.ReplyEdges 		`json:"edges,omitempty" swaggerignore:"true"`
+// 	Edges        		*ent.ReplyEdges 		`json:"edges,omitempty"`
 // 	Author				UserDataSchema			`json:"author"`
 // 	Slug				string					`json:"slug" example:"john-doe-d10dde64-a242-4ed0-bd75-4c759644b3a6"`
 // 	Text				string					`json:"text" example:"Jesus Is King"`
