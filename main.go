@@ -23,7 +23,7 @@ func main() {
 	})
 
 	// first serve static files
-	app.Static("/api/", "./public", fiber.Static{
+	app.Static("/api/", "./docs", fiber.Static{
 		ByteRange: true,
 		Index:     "index.html",
 	})
